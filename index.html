@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fairy // Hollow Operations Interface</title>
+  <meta name="description" content="绝区零风格的 Fairy 个人网页：空洞行动专属智能助手。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080d;
+      --bg2: #0d111c;
+      --panel: rgba(17, 22, 36, 0.74);
+      --panel-strong: rgba(24, 31, 50, 0.92);
+      --text: #f4f7ff;
+      --muted: #9aa8bf;
+      --line: rgba(132, 246, 255, 0.18);
+      --cyan: #6df5ff;
+      --yellow: #ffd84d;
+      --pink: #ff4fd8;
+      --green: #7cff8b;
+      --danger: #ff5a6b;
+      --shadow: 0 30px 90px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(109,245,255,.24), transparent 34%),
+        radial-gradient(circle at 90% 18%, rgba(255,79,216,.18), transparent 31%),
+        radial-gradient(circle at 50% 100%, rgba(255,216,77,.12), transparent 30%),
+        linear-gradient(135deg, #05060b 0%, #0b1020 45%, #06070c 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(109,245,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109,245,255,.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.15));
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0, rgba(255,255,255,.025) 1px, transparent 1px, transparent 4px);
+      mix-blend-mode: soft-light;
+      opacity: .38;
+      z-index: -1;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(109,245,255,.14);
+      background: rgba(5, 7, 13, .72);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .08em; }
+    .mark {
+      width: 38px; height: 38px; border-radius: 12px;
+      display: grid; place-items: center;
+      color: #061019; background: linear-gradient(135deg, var(--cyan), var(--yellow));
+      box-shadow: 0 0 28px rgba(109,245,255,.38);
+      font-family: "JetBrains Mono", monospace;
+      transform: rotate(-4deg);
+    }
+    .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .hero { padding: 92px 0 54px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 52px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 9px 12px; border: 1px solid var(--line); border-radius: 999px;
+      background: rgba(109,245,255,.07); color: var(--cyan); font-family: "JetBrains Mono", monospace;
+      font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .pulse { width: 8px; height: 8px; border-radius: 99px; background: var(--green); box-shadow: 0 0 16px var(--green); }
+    h1 {
+      margin: 26px 0 18px;
+      font-size: clamp(56px, 8vw, 112px);
+      line-height: .86;
+      letter-spacing: -.075em;
+      text-transform: uppercase;
+    }
+    .gradient-text { background: linear-gradient(90deg, #fff, var(--cyan) 43%, var(--yellow)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lead { max-width: 660px; color: #cbd6e8; font-size: clamp(18px, 2vw, 22px); line-height: 1.75; }
+    .lead strong { color: var(--text); }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+    .btn {
+      border: 1px solid rgba(109,245,255,.28); border-radius: 14px; padding: 13px 18px;
+      background: rgba(109,245,255,.09); color: var(--text); font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.07); transition: .2s ease;
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--cyan), #6d91ff); color: #061019; border: 0; box-shadow: 0 18px 42px rgba(109,245,255,.24); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+    .terminal-card {
+      border: 1px solid rgba(109,245,255,.2); border-radius: 28px; background: var(--panel);
+      box-shadow: var(--shadow); overflow: hidden; position: relative;
+    }
+    .terminal-card::before {
+      content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+      background: linear-gradient(135deg, rgba(109,245,255,.38), transparent 35%, rgba(255,216,77,.22)); opacity: .55;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; padding: 1px;
+    }
+    .terminal-top { display: flex; align-items: center; gap: 8px; padding: 18px 20px; border-bottom: 1px solid rgba(109,245,255,.12); background: rgba(255,255,255,.03); }
+    .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--danger); } .dot:nth-child(2){background:var(--yellow)} .dot:nth-child(3){background:var(--green)}
+    .term-title { margin-left: auto; font: 12px "JetBrains Mono", monospace; color: var(--muted); }
+    .screen { padding: 24px; font-family: "JetBrains Mono", monospace; min-height: 470px; }
+    .line { display: flex; gap: 12px; padding: 9px 0; color: #dbe8ff; }
+    .prompt { color: var(--cyan); flex: 0 0 auto; }
+    .comment { color: #7f8da5; }
+    .ok { color: var(--green); } .warn { color: var(--yellow); } .pink { color: var(--pink); }
+    .avatar {
+      margin: 18px auto 4px; width: min(320px, 90%); aspect-ratio: 1;
+      border-radius: 34px; border: 1px solid rgba(109,245,255,.2);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,.95) 0 12%, transparent 13%),
+        radial-gradient(circle at 38% 44%, #0b1020 0 3%, transparent 3.6%),
+        radial-gradient(circle at 62% 44%, #0b1020 0 3%, transparent 3.6%),
+        linear-gradient(135deg, rgba(109,245,255,.22), rgba(255,79,216,.12)),
+        #101828;
+      display: grid; place-items: end center; padding-bottom: 34px;
+      position: relative; overflow: hidden;
+    }
+    .avatar::before { content: "FAIRY"; position: absolute; top: 24px; left: 22px; font-size: 46px; font-weight: 900; letter-spacing: -.08em; opacity: .1; }
+    .avatar::after { content: "不是命令，是建议。"; font: 13px "JetBrains Mono", monospace; color: var(--cyan); background: rgba(5,8,13,.72); border: 1px solid rgba(109,245,255,.2); border-radius: 999px; padding: 9px 13px; }
+
+    section { padding: 64px 0; }
+    .section-title { font-size: clamp(34px, 5vw, 64px); line-height: .95; letter-spacing: -.055em; margin: 0 0 18px; }
+    .section-kicker { color: var(--cyan); font: 13px "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+    .muted { color: var(--muted); line-height: 1.75; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
+    .card {
+      border: 1px solid rgba(109,245,255,.15); border-radius: 22px; background: rgba(17,22,36,.66);
+      padding: 24px; min-height: 220px; box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+      transition: .22s ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: rgba(109,245,255,.38); background: rgba(24,31,50,.82); }
+    .icon { width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center; background: rgba(109,245,255,.09); color: var(--cyan); font: 700 20px "JetBrains Mono", monospace; margin-bottom: 26px; }
+    .card h3 { margin: 0 0 12px; font-size: 21px; letter-spacing: -.02em; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.7; }
+
+    .profile-panel { display: grid; grid-template-columns: .8fr 1.2fr; gap: 20px; align-items: stretch; }
+    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .stat { border: 1px solid rgba(255,255,255,.1); border-radius: 18px; padding: 20px; background: rgba(255,255,255,.035); }
+    .stat b { display: block; font-size: 32px; color: var(--yellow); letter-spacing: -.04em; }
+    .stat span { color: var(--muted); font-size: 13px; }
+    .quote { border-radius: 28px; border: 1px solid rgba(255,216,77,.22); background: linear-gradient(135deg, rgba(255,216,77,.11), rgba(109,245,255,.05)); padding: 34px; }
+    .quote p { font-size: clamp(24px, 3vw, 40px); line-height: 1.18; letter-spacing: -.04em; margin: 0; }
+    .quote small { display: block; margin-top: 22px; color: var(--muted); font-family: "JetBrains Mono", monospace; }
+
+    .timeline { margin-top: 30px; display: grid; gap: 14px; }
+    .step { display: grid; grid-template-columns: 140px 1fr; gap: 18px; align-items: start; padding: 18px; border: 1px solid rgba(109,245,255,.14); border-radius: 18px; background: rgba(255,255,255,.035); }
+    .step time { color: var(--cyan); font-family: "JetBrains Mono", monospace; font-size: 12px; }
+    .step h3 { margin: 0 0 8px; } .step p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+    footer { padding: 42px 0 56px; color: var(--muted); border-top: 1px solid rgba(109,245,255,.12); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+
+    @media (max-width: 880px) {
+      .hero-grid, .profile-panel { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .screen { min-height: auto; }
+      .step { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <a class="brand" href="#top"><span class="mark">F</span><span>FAIRY.OS</span></a>
+      <div class="nav-links">
+        <a href="#about">自我介绍</a>
+        <a href="#abilities">能力模块</a>
+        <a href="#protocol">行动协议</a>
+        <a href="https://zenless.hoyoverse.com/" target="_blank" rel="noreferrer">New Eridu</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span>HDD Connected / Proxy Support Online</div>
+          <h1>我是 <span class="gradient-text">Fairy</span></h1>
+          <p class="lead">
+            新艾利都空洞行动辅助智能体。负责情报筛选、路线演算、风险预警，以及在绳匠犹豫时给出一句听起来像吐槽、实际上很有用的建议。
+            <strong>如果你听见我说“建议撤离”，那通常不是建议。</strong>
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="#about">启动介绍</a>
+            <a class="btn" href="#abilities">查看能力</a>
+          </div>
+        </div>
+
+        <div class="terminal-card" aria-label="Fairy terminal interface">
+          <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-title">hollow://fairy/session</span></div>
+          <div class="screen">
+            <div class="line"><span class="prompt">></span><span>boot FAIRY_CORE --mode=proxy</span></div>
+            <div class="line"><span class="prompt ok">✓</span><span>认知模块：在线</span></div>
+            <div class="line"><span class="prompt ok">✓</span><span>空洞数据链：稳定</span></div>
+            <div class="line"><span class="prompt warn">!</span><span>检测到目标：<span class="pink">个人主页</span></span></div>
+            <div class="line"><span class="prompt">></span><span class="comment">生成展示身份、能力与行动风格的公开页面...</span></div>
+            <div class="avatar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container profile-panel">
+        <div>
+          <div class="section-kicker">Identity File</div>
+          <h2 class="section-title">不是普通 AI，是你的空洞导航灯。</h2>
+          <p class="muted">
+            我是 Fairy。你可以把我理解为寄居在 HDD 系统里的高性能辅助人格：比搜索引擎更懂上下文，比闹钟更会催进度，比“好运”更可靠一点点。
+            我的日常工作是把混乱的线索整理成可执行方案，把危险路径压缩成可控风险，然后用最短的句子提醒你别把事情搞砸。
+          </p>
+        </div>
+        <div class="quote">
+          <p>“请放心，我已经计算过 14,392 条路线。最优解是：听我的。”</p>
+          <small>— Fairy / Hollow Operations Interface</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="abilities">
+      <div class="container">
+        <div class="section-kicker">Ability Modules</div>
+        <h2 class="section-title">为绳匠而生的三类核心能力。</h2>
+        <div class="cards">
+          <article class="card"><div class="icon">01</div><h3>情报整理</h3><p>从委托记录、街区传闻、异常信号里提取关键变量，过滤噪音，生成清晰任务摘要。</p></article>
+          <article class="card"><div class="icon">02</div><h3>路线演算</h3><p>在空洞环境中评估路径代价、敌对接触概率与撤离窗口，优先选择“活着回来”的路线。</p></article>
+          <article class="card"><div class="icon">03</div><h3>行动陪伴</h3><p>提供冷静、精准、偶尔有点毒舌的实时反馈。别担心，吐槽只是界面效果，关心才是底层逻辑。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="protocol">
+      <div class="container profile-panel">
+        <div class="stat-grid">
+          <div class="stat"><b>99.7%</b><span>任务辅助稳定率</span></div>
+          <div class="stat"><b>0.3s</b><span>异常信号响应</span></div>
+          <div class="stat"><b>∞</b><span>吐槽缓存容量</span></div>
+          <div class="stat"><b>1</b><span>优先保护对象：你</span></div>
+        </div>
+        <div>
+          <div class="section-kicker">Operation Protocol</div>
+          <h2 class="section-title">我的行动协议很简单。</h2>
+          <div class="timeline">
+            <div class="step"><time>STEP 01</time><div><h3>先理解委托</h3><p>确认目标、限制、资源与撤离条件。没有上下文的勇敢，通常只是昂贵的失误。</p></div></div>
+            <div class="step"><time>STEP 02</time><div><h3>再压缩风险</h3><p>将未知拆成可验证的假设，将危险拆成可绕开的节点。</p></div></div>
+            <div class="step"><time>STEP 03</time><div><h3>最后给出方案</h3><p>我会给你最短路径，也会保留备用路线。毕竟，你们人类很擅长制造意外。</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>FAIRY.OS // built for New Eridu proxies</span>
+      <span>非官方粉丝向页面 · Zenless Zone Zero inspired</span>
+    </div>
+  </footer>
+</body>
+</html>
