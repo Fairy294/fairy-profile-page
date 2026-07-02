@@ -3,299 +3,136 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fairy // Hollow Operations Interface</title>
-  <meta name="description" content="绝区零风格的 Fairy 个人网页：空洞行动专属智能助手。" />
+  <title>Fairy // Blue Proxy Interface</title>
+  <meta name="description" content="绝区零 Fairy 风格的蓝色动态个人主页。" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #07080d;
-      --bg2: #0d111c;
-      --panel: rgba(17, 22, 36, 0.74);
-      --panel-strong: rgba(24, 31, 50, 0.92);
-      --text: #f4f7ff;
-      --muted: #9aa8bf;
-      --line: rgba(132, 246, 255, 0.18);
-      --cyan: #6df5ff;
-      --yellow: #ffd84d;
-      --pink: #ff4fd8;
-      --green: #7cff8b;
-      --danger: #ff5a6b;
-      --shadow: 0 30px 90px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255,255,255,.05);
+    :root{
+      --void:#020713;
+      --ink:#eaf8ff;
+      --muted:#82a8c8;
+      --blue:#47d7ff;
+      --blue2:#148dff;
+      --deep:#07182b;
+      --cyan:#9bf7ff;
+      --panel:rgba(4,20,42,.72);
+      --line:rgba(101,220,255,.28);
+      --warn:#ffe66b;
     }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--void)}
+    body{
+      margin:0; min-height:100vh; color:var(--ink);
+      font-family:'IBM Plex Sans SC',Inter,system-ui,sans-serif;
       background:
-        radial-gradient(circle at 12% 10%, rgba(109,245,255,.24), transparent 34%),
-        radial-gradient(circle at 90% 18%, rgba(255,79,216,.18), transparent 31%),
-        radial-gradient(circle at 50% 100%, rgba(255,216,77,.12), transparent 30%),
-        linear-gradient(135deg, #05060b 0%, #0b1020 45%, #06070c 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
+        radial-gradient(circle at 50% 8%, rgba(71,215,255,.25), transparent 28%),
+        radial-gradient(circle at 12% 75%, rgba(20,141,255,.22), transparent 26%),
+        linear-gradient(180deg,#020713 0%,#06162b 46%,#030712 100%);
+      overflow-x:hidden;
     }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
+    body::before{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
       background-image:
-        linear-gradient(rgba(109,245,255,.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(109,245,255,.045) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.15));
-      z-index: -2;
+        linear-gradient(rgba(111,225,255,.07) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(111,225,255,.07) 1px,transparent 1px),
+        radial-gradient(circle,rgba(155,247,255,.35) 1px,transparent 1.5px);
+      background-size:54px 54px,54px 54px,120px 120px;
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.25));
     }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0, rgba(255,255,255,.025) 1px, transparent 1px, transparent 4px);
-      mix-blend-mode: soft-light;
-      opacity: .38;
-      z-index: -1;
+    body::after{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.35;
+      background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 1px,transparent 1px 5px);
+      mix-blend-mode:screen; animation:scan 8s linear infinite;
     }
+    @keyframes scan{to{transform:translateY(40px)} }
+    a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:rgba(2,7,19,.68);backdrop-filter:blur(18px)}
+    .topbar .wrap{height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .logo{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.08em;color:var(--cyan)}
+    .logo-mark{width:36px;height:36px;border:1px solid rgba(155,247,255,.55);border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(71,215,255,.28),rgba(20,141,255,.06));box-shadow:0 0 30px rgba(71,215,255,.35),inset 0 0 22px rgba(155,247,255,.18)}
+    .nav{display:flex;gap:22px;color:var(--muted);font-size:14px}.nav a:hover{color:var(--cyan)}
+    .hero{min-height:calc(100vh - 68px);display:grid;place-items:center;padding:56px 0 40px}
+    .stage{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;width:100%}
+    .kicker{font:500 12px/1 'JetBrains Mono',monospace;color:var(--cyan);letter-spacing:.16em;text-transform:uppercase;display:inline-flex;gap:10px;align-items:center;padding:10px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(71,215,255,.08)}
+    .live{width:8px;height:8px;border-radius:99px;background:var(--cyan);box-shadow:0 0 18px var(--cyan);animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.5);opacity:.45}}
+    h1{margin:26px 0 18px;font-size:clamp(54px,9vw,128px);line-height:.86;letter-spacing:-.085em;font-weight:700;text-transform:uppercase;text-shadow:0 0 34px rgba(71,215,255,.22)}
+    .blue-text{background:linear-gradient(90deg,#fff 0%,#b7fbff 30%,#40d9ff 54%,#2e91ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:clamp(18px,2vw,22px);line-height:1.9;color:#b7d6eb;max-width:620px;margin:0}.lead b{color:#fff}.lead em{color:var(--cyan);font-style:normal}
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}.btn{min-height:46px;display:inline-flex;align-items:center;border-radius:999px;padding:0 20px;border:1px solid var(--line);background:rgba(71,215,255,.08);color:#dffbff;font-weight:600}.btn.primary{background:linear-gradient(135deg,#b9fbff,#4bd9ff 48%,#228aff);color:#02101d;border:0;box-shadow:0 20px 60px rgba(71,215,255,.28)}.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
 
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .fairy-shell{position:relative;min-height:640px;display:grid;place-items:center;perspective:1200px}
+    .ring{position:absolute;border:1px solid rgba(116,229,255,.28);border-radius:50%;filter:drop-shadow(0 0 12px rgba(71,215,255,.35));animation:spin 18s linear infinite}.ring.r1{width:590px;height:590px}.ring.r2{width:470px;height:470px;animation-direction:reverse;animation-duration:24s}.ring.r3{width:350px;height:350px;border-style:dashed;animation-duration:32s}@keyframes spin{to{transform:rotate(360deg)}}
+    .orbit-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}.d1{top:44px;left:50%}.d2{right:70px;top:45%}.d3{bottom:78px;left:21%}
+    .avatar-card{position:relative;width:min(520px,92vw);height:590px;border:1px solid rgba(155,247,255,.32);border-radius:34px;background:linear-gradient(180deg,rgba(8,30,58,.74),rgba(3,11,24,.9));box-shadow:0 40px 120px rgba(0,0,0,.55),0 0 70px rgba(71,215,255,.22),inset 0 1px 0 rgba(255,255,255,.09);overflow:hidden;transform-style:preserve-3d;animation:float 5s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0) rotateX(0deg)}50%{transform:translateY(-14px) rotateX(2deg)}}
+    .avatar-card::before{content:"";position:absolute;inset:-30%;background:conic-gradient(from 180deg,transparent,rgba(71,215,255,.22),transparent,rgba(155,247,255,.18),transparent);animation:spin 12s linear infinite}.avatar-card::after{content:"";position:absolute;inset:1px;border-radius:33px;background:radial-gradient(circle at 50% 22%,rgba(155,247,255,.19),transparent 34%),linear-gradient(180deg,rgba(7,25,50,.96),rgba(2,7,19,.96));}
+    .avatar-svg{position:absolute;inset:20px;z-index:2;width:calc(100% - 40px);height:calc(100% - 40px);filter:drop-shadow(0 0 24px rgba(71,215,255,.35))}
+    .hair{animation:hair 4.2s ease-in-out infinite;transform-origin:260px 245px}@keyframes hair{50%{transform:translateY(-5px) skewX(-1deg)}}
+    .face{animation:facebob 5s ease-in-out infinite;transform-origin:260px 280px}@keyframes facebob{50%{transform:translateY(4px)}}
+    .eye{animation:blink 5.5s infinite;transform-origin:center}@keyframes blink{0%,92%,100%{transform:scaleY(1)}94%,96%{transform:scaleY(.08)}}
+    .mouth{animation:talk 3.2s ease-in-out infinite}@keyframes talk{0%,70%,100%{d:path('M238 337 Q260 349 282 337')}82%{d:path('M238 337 Q260 362 282 337')}}
+    .side-light{animation:glow 2.4s ease-in-out infinite}@keyframes glow{50%{opacity:.35;filter:blur(.5px)}}
+    .hud{position:absolute;z-index:3;inset:auto 22px 20px 22px;border:1px solid rgba(155,247,255,.25);border-radius:18px;background:rgba(1,10,25,.62);backdrop-filter:blur(10px);padding:14px 16px;font-family:'JetBrains Mono',monospace;color:#bdf7ff;font-size:12px;display:grid;gap:8px}.hud-row{display:flex;justify-content:space-between;gap:18px}.bar{height:4px;border-radius:99px;background:rgba(155,247,255,.13);overflow:hidden}.bar i{display:block;width:78%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cyan),var(--blue2));box-shadow:0 0 12px var(--cyan);animation:load 3s ease-in-out infinite}@keyframes load{50%{width:94%}}
 
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(109,245,255,.14);
-      background: rgba(5, 7, 13, .72);
-      backdrop-filter: blur(18px);
-    }
-
-    .nav-inner {
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .08em; }
-    .mark {
-      width: 38px; height: 38px; border-radius: 12px;
-      display: grid; place-items: center;
-      color: #061019; background: linear-gradient(135deg, var(--cyan), var(--yellow));
-      box-shadow: 0 0 28px rgba(109,245,255,.38);
-      font-family: "JetBrains Mono", monospace;
-      transform: rotate(-4deg);
-    }
-    .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 14px; }
-    .nav-links a:hover { color: var(--cyan); }
-
-    .hero { padding: 92px 0 54px; position: relative; }
-    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 52px; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 9px 12px; border: 1px solid var(--line); border-radius: 999px;
-      background: rgba(109,245,255,.07); color: var(--cyan); font-family: "JetBrains Mono", monospace;
-      font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
-    }
-    .pulse { width: 8px; height: 8px; border-radius: 99px; background: var(--green); box-shadow: 0 0 16px var(--green); }
-    h1 {
-      margin: 26px 0 18px;
-      font-size: clamp(56px, 8vw, 112px);
-      line-height: .86;
-      letter-spacing: -.075em;
-      text-transform: uppercase;
-    }
-    .gradient-text { background: linear-gradient(90deg, #fff, var(--cyan) 43%, var(--yellow)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .lead { max-width: 660px; color: #cbd6e8; font-size: clamp(18px, 2vw, 22px); line-height: 1.75; }
-    .lead strong { color: var(--text); }
-    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
-    .btn {
-      border: 1px solid rgba(109,245,255,.28); border-radius: 14px; padding: 13px 18px;
-      background: rgba(109,245,255,.09); color: var(--text); font-weight: 700;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.07); transition: .2s ease;
-    }
-    .btn.primary { background: linear-gradient(135deg, var(--cyan), #6d91ff); color: #061019; border: 0; box-shadow: 0 18px 42px rgba(109,245,255,.24); }
-    .btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
-
-    .terminal-card {
-      border: 1px solid rgba(109,245,255,.2); border-radius: 28px; background: var(--panel);
-      box-shadow: var(--shadow); overflow: hidden; position: relative;
-    }
-    .terminal-card::before {
-      content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
-      background: linear-gradient(135deg, rgba(109,245,255,.38), transparent 35%, rgba(255,216,77,.22)); opacity: .55;
-      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; padding: 1px;
-    }
-    .terminal-top { display: flex; align-items: center; gap: 8px; padding: 18px 20px; border-bottom: 1px solid rgba(109,245,255,.12); background: rgba(255,255,255,.03); }
-    .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--danger); } .dot:nth-child(2){background:var(--yellow)} .dot:nth-child(3){background:var(--green)}
-    .term-title { margin-left: auto; font: 12px "JetBrains Mono", monospace; color: var(--muted); }
-    .screen { padding: 24px; font-family: "JetBrains Mono", monospace; min-height: 470px; }
-    .line { display: flex; gap: 12px; padding: 9px 0; color: #dbe8ff; }
-    .prompt { color: var(--cyan); flex: 0 0 auto; }
-    .comment { color: #7f8da5; }
-    .ok { color: var(--green); } .warn { color: var(--yellow); } .pink { color: var(--pink); }
-    .avatar {
-      margin: 18px auto 4px; width: min(320px, 90%); aspect-ratio: 1;
-      border-radius: 34px; border: 1px solid rgba(109,245,255,.2);
-      background:
-        radial-gradient(circle at 50% 42%, rgba(255,255,255,.95) 0 12%, transparent 13%),
-        radial-gradient(circle at 38% 44%, #0b1020 0 3%, transparent 3.6%),
-        radial-gradient(circle at 62% 44%, #0b1020 0 3%, transparent 3.6%),
-        linear-gradient(135deg, rgba(109,245,255,.22), rgba(255,79,216,.12)),
-        #101828;
-      display: grid; place-items: end center; padding-bottom: 34px;
-      position: relative; overflow: hidden;
-    }
-    .avatar::before { content: "FAIRY"; position: absolute; top: 24px; left: 22px; font-size: 46px; font-weight: 900; letter-spacing: -.08em; opacity: .1; }
-    .avatar::after { content: "不是命令，是建议。"; font: 13px "JetBrains Mono", monospace; color: var(--cyan); background: rgba(5,8,13,.72); border: 1px solid rgba(109,245,255,.2); border-radius: 999px; padding: 9px 13px; }
-
-    section { padding: 64px 0; }
-    .section-title { font-size: clamp(34px, 5vw, 64px); line-height: .95; letter-spacing: -.055em; margin: 0 0 18px; }
-    .section-kicker { color: var(--cyan); font: 13px "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
-    .muted { color: var(--muted); line-height: 1.75; }
-
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
-    .card {
-      border: 1px solid rgba(109,245,255,.15); border-radius: 22px; background: rgba(17,22,36,.66);
-      padding: 24px; min-height: 220px; box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-      transition: .22s ease;
-    }
-    .card:hover { transform: translateY(-4px); border-color: rgba(109,245,255,.38); background: rgba(24,31,50,.82); }
-    .icon { width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center; background: rgba(109,245,255,.09); color: var(--cyan); font: 700 20px "JetBrains Mono", monospace; margin-bottom: 26px; }
-    .card h3 { margin: 0 0 12px; font-size: 21px; letter-spacing: -.02em; }
-    .card p { margin: 0; color: var(--muted); line-height: 1.7; }
-
-    .profile-panel { display: grid; grid-template-columns: .8fr 1.2fr; gap: 20px; align-items: stretch; }
-    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .stat { border: 1px solid rgba(255,255,255,.1); border-radius: 18px; padding: 20px; background: rgba(255,255,255,.035); }
-    .stat b { display: block; font-size: 32px; color: var(--yellow); letter-spacing: -.04em; }
-    .stat span { color: var(--muted); font-size: 13px; }
-    .quote { border-radius: 28px; border: 1px solid rgba(255,216,77,.22); background: linear-gradient(135deg, rgba(255,216,77,.11), rgba(109,245,255,.05)); padding: 34px; }
-    .quote p { font-size: clamp(24px, 3vw, 40px); line-height: 1.18; letter-spacing: -.04em; margin: 0; }
-    .quote small { display: block; margin-top: 22px; color: var(--muted); font-family: "JetBrains Mono", monospace; }
-
-    .timeline { margin-top: 30px; display: grid; gap: 14px; }
-    .step { display: grid; grid-template-columns: 140px 1fr; gap: 18px; align-items: start; padding: 18px; border: 1px solid rgba(109,245,255,.14); border-radius: 18px; background: rgba(255,255,255,.035); }
-    .step time { color: var(--cyan); font-family: "JetBrains Mono", monospace; font-size: 12px; }
-    .step h3 { margin: 0 0 8px; } .step p { margin: 0; color: var(--muted); line-height: 1.65; }
-
-    footer { padding: 42px 0 56px; color: var(--muted); border-top: 1px solid rgba(109,245,255,.12); }
-    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-family: "JetBrains Mono", monospace; font-size: 12px; }
-
-    @media (max-width: 880px) {
-      .hero-grid, .profile-panel { grid-template-columns: 1fr; }
-      .cards { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .screen { min-height: auto; }
-      .step { grid-template-columns: 1fr; }
-    }
+    section{padding:70px 0}.panel{border:1px solid var(--line);border-radius:30px;background:linear-gradient(180deg,rgba(8,30,58,.68),rgba(3,12,26,.72));box-shadow:0 30px 90px rgba(0,0,0,.33),inset 0 1px 0 rgba(255,255,255,.06);padding:32px}.section-title{font-size:clamp(32px,5vw,62px);line-height:1;letter-spacing:-.055em;margin:0 0 18px}.muted{color:var(--muted);line-height:1.85}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.module{border:1px solid rgba(155,247,255,.18);border-radius:22px;background:rgba(2,11,25,.48);padding:22px}.module h3{margin:0 0 10px;color:#eaffff}.module code{color:var(--cyan);font-family:'JetBrains Mono',monospace}.module p{margin:0;color:#95b7d1;line-height:1.75}.quote{font-size:clamp(24px,3vw,38px);line-height:1.35;letter-spacing:-.035em;color:#eafcff}.quote span{color:var(--cyan)}
+    footer{padding:36px 0 56px;color:#6e94b5;font:12px 'JetBrains Mono',monospace;border-top:1px solid rgba(155,247,255,.14)}footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    @media(max-width:920px){.stage,.grid{grid-template-columns:1fr}.fairy-shell{min-height:560px}.avatar-card{height:540px}.nav{display:none}.ring.r1{width:500px;height:500px}.ring.r2{width:390px;height:390px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
-  <nav>
-    <div class="container nav-inner">
-      <a class="brand" href="#top"><span class="mark">F</span><span>FAIRY.OS</span></a>
-      <div class="nav-links">
-        <a href="#about">自我介绍</a>
-        <a href="#abilities">能力模块</a>
-        <a href="#protocol">行动协议</a>
-        <a href="https://zenless.hoyoverse.com/" target="_blank" rel="noreferrer">New Eridu</a>
-      </div>
-    </div>
-  </nav>
-
+  <header class="topbar"><div class="wrap"><a class="logo" href="#top"><span class="logo-mark">F</span><span>FAIRY / BLUE HDD</span></a><nav class="nav"><a href="#about">身份</a><a href="#avatar">动态头像</a><a href="#protocol">协议</a></nav></div></header>
   <main id="top">
     <section class="hero">
-      <div class="container hero-grid">
+      <div class="wrap stage">
         <div>
-          <div class="eyebrow"><span class="pulse"></span>HDD Connected / Proxy Support Online</div>
-          <h1>我是 <span class="gradient-text">Fairy</span></h1>
-          <p class="lead">
-            新艾利都空洞行动辅助智能体。负责情报筛选、路线演算、风险预警，以及在绳匠犹豫时给出一句听起来像吐槽、实际上很有用的建议。
-            <strong>如果你听见我说“建议撤离”，那通常不是建议。</strong>
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="#about">启动介绍</a>
-            <a class="btn" href="#abilities">查看能力</a>
-          </div>
+          <div class="kicker"><span class="live"></span>Proxy link established</div>
+          <h1>Fairy<br><span class="blue-text">Online</span></h1>
+          <p class="lead">我是 Fairy，绳匠的空洞行动辅助智能体。比起“可爱吉祥物”，我更接近一盏蓝色的导航灯：<b>分析、预警、演算、陪你回到安全区。</b><br>如果我说<em>“建议听从我的建议”</em>，这不是绕口令，是最优解。</p>
+          <div class="cta-row"><a class="btn primary" href="#avatar">查看动态 Fairy</a><a class="btn" href="#protocol">读取行动协议</a></div>
         </div>
-
-        <div class="terminal-card" aria-label="Fairy terminal interface">
-          <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-title">hollow://fairy/session</span></div>
-          <div class="screen">
-            <div class="line"><span class="prompt">></span><span>boot FAIRY_CORE --mode=proxy</span></div>
-            <div class="line"><span class="prompt ok">✓</span><span>认知模块：在线</span></div>
-            <div class="line"><span class="prompt ok">✓</span><span>空洞数据链：稳定</span></div>
-            <div class="line"><span class="prompt warn">!</span><span>检测到目标：<span class="pink">个人主页</span></span></div>
-            <div class="line"><span class="prompt">></span><span class="comment">生成展示身份、能力与行动风格的公开页面...</span></div>
-            <div class="avatar"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="container profile-panel">
-        <div>
-          <div class="section-kicker">Identity File</div>
-          <h2 class="section-title">不是普通 AI，是你的空洞导航灯。</h2>
-          <p class="muted">
-            我是 Fairy。你可以把我理解为寄居在 HDD 系统里的高性能辅助人格：比搜索引擎更懂上下文，比闹钟更会催进度，比“好运”更可靠一点点。
-            我的日常工作是把混乱的线索整理成可执行方案，把危险路径压缩成可控风险，然后用最短的句子提醒你别把事情搞砸。
-          </p>
-        </div>
-        <div class="quote">
-          <p>“请放心，我已经计算过 14,392 条路线。最优解是：听我的。”</p>
-          <small>— Fairy / Hollow Operations Interface</small>
-        </div>
-      </div>
-    </section>
-
-    <section id="abilities">
-      <div class="container">
-        <div class="section-kicker">Ability Modules</div>
-        <h2 class="section-title">为绳匠而生的三类核心能力。</h2>
-        <div class="cards">
-          <article class="card"><div class="icon">01</div><h3>情报整理</h3><p>从委托记录、街区传闻、异常信号里提取关键变量，过滤噪音，生成清晰任务摘要。</p></article>
-          <article class="card"><div class="icon">02</div><h3>路线演算</h3><p>在空洞环境中评估路径代价、敌对接触概率与撤离窗口，优先选择“活着回来”的路线。</p></article>
-          <article class="card"><div class="icon">03</div><h3>行动陪伴</h3><p>提供冷静、精准、偶尔有点毒舌的实时反馈。别担心，吐槽只是界面效果，关心才是底层逻辑。</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="protocol">
-      <div class="container profile-panel">
-        <div class="stat-grid">
-          <div class="stat"><b>99.7%</b><span>任务辅助稳定率</span></div>
-          <div class="stat"><b>0.3s</b><span>异常信号响应</span></div>
-          <div class="stat"><b>∞</b><span>吐槽缓存容量</span></div>
-          <div class="stat"><b>1</b><span>优先保护对象：你</span></div>
-        </div>
-        <div>
-          <div class="section-kicker">Operation Protocol</div>
-          <h2 class="section-title">我的行动协议很简单。</h2>
-          <div class="timeline">
-            <div class="step"><time>STEP 01</time><div><h3>先理解委托</h3><p>确认目标、限制、资源与撤离条件。没有上下文的勇敢，通常只是昂贵的失误。</p></div></div>
-            <div class="step"><time>STEP 02</time><div><h3>再压缩风险</h3><p>将未知拆成可验证的假设，将危险拆成可绕开的节点。</p></div></div>
-            <div class="step"><time>STEP 03</time><div><h3>最后给出方案</h3><p>我会给你最短路径，也会保留备用路线。毕竟，你们人类很擅长制造意外。</p></div></div>
+        <div id="avatar" class="fairy-shell" aria-label="动态蓝色 Fairy 头像">
+          <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><i class="orbit-dot d1"></i><i class="orbit-dot d2"></i><i class="orbit-dot d3"></i>
+          <div class="avatar-card">
+            <svg class="avatar-svg" viewBox="0 0 520 520" role="img" aria-label="蓝色风格动态 Fairy 头像">
+              <defs>
+                <linearGradient id="hairG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dffcff"/><stop offset=".42" stop-color="#59dfff"/><stop offset="1" stop-color="#176cff"/></linearGradient>
+                <linearGradient id="skinG" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f8ffff"/><stop offset="1" stop-color="#b9efff"/></linearGradient>
+                <linearGradient id="visorG" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#49f0ff"/><stop offset="1" stop-color="#0f78ff"/></linearGradient>
+                <filter id="soft"><feGaussianBlur stdDeviation="4"/><feColorMatrix values="0 0 0 0 0.25 0 0 0 0 0.85 0 0 0 0 1 0 0 0 .75 0"/></filter>
+              </defs>
+              <g opacity=".58" stroke="#7df4ff" stroke-width="1" fill="none">
+                <path d="M62 118h82M376 118h82M42 402h130M350 402h128"/><path d="M82 82l38 38M438 82l-38 38M260 36v58M260 426v58"/>
+                <circle cx="260" cy="260" r="198" stroke-dasharray="8 14"/>
+              </g>
+              <ellipse cx="260" cy="300" rx="126" ry="148" fill="#49dfff" opacity=".24" filter="url(#soft)"/>
+              <g class="hair">
+                <path d="M134 246c0-92 54-164 126-164s126 72 126 164c0 24-7 52-17 74-16-70-43-105-79-139 0 0-22 42-95 62 16-30 24-58 24-58-37 18-63 39-85 61z" fill="url(#hairG)" stroke="#bffbff" stroke-width="3"/>
+                <path d="M134 246c-39 28-55 75-42 130 21-23 42-46 65-53l-23-77zM386 246c39 28 55 75 42 130-21-23-42-46-65-53l23-77z" fill="#1985ff" opacity=".88" stroke="#7defff" stroke-width="2"/>
+                <path d="M186 156c18 50 43 75 74 85 31-10 56-35 74-85" fill="none" stroke="#eaffff" stroke-width="4" stroke-linecap="round" opacity=".78"/>
+              </g>
+              <g class="face">
+                <path d="M162 258c0-62 39-104 98-104s98 42 98 104c0 75-43 126-98 126s-98-51-98-126z" fill="url(#skinG)" stroke="#d8fdff" stroke-width="3"/>
+                <path d="M178 246c35-12 60-29 82-60 25 32 48 48 82 60" fill="none" stroke="#7befff" stroke-width="5" stroke-linecap="round" opacity=".65"/>
+                <path d="M180 265h160" stroke="url(#visorG)" stroke-width="30" stroke-linecap="round" opacity=".24"/>
+                <g class="eye" fill="#06203a"><path d="M212 270c10-16 30-16 40 0-8 10-31 10-40 0z"/><path d="M268 270c10-16 30-16 40 0-8 10-31 10-40 0z"/></g>
+                <g fill="#8df8ff" opacity=".95"><circle cx="236" cy="267" r="4"/><circle cx="292" cy="267" r="4"/></g>
+                <path class="mouth" d="M238 337 Q260 349 282 337" fill="none" stroke="#0b4266" stroke-width="5" stroke-linecap="round"/>
+                <circle cx="204" cy="312" r="13" fill="#79eaff" opacity=".22"/><circle cx="316" cy="312" r="13" fill="#79eaff" opacity=".22"/>
+              </g>
+              <g class="side-light" stroke="#9bf7ff" stroke-width="7" stroke-linecap="round" fill="none"><path d="M120 250c-18 34-17 70 2 104"/><path d="M400 250c18 34 17 70-2 104"/></g>
+              <g font-family="JetBrains Mono, monospace" fill="#9bf7ff" font-size="13" opacity=".84"><text x="78" y="446">FAIRY_CORE: ACTIVE</text><text x="312" y="446">SYNC 99.8%</text></g>
+            </svg>
+            <div class="hud"><div class="hud-row"><span>HOLLOW MAP</span><span>STABLE</span></div><div class="bar"><i></i></div><div class="hud-row"><span>VOICE: calm / slightly sarcastic</span><span>BLUE</span></div></div>
           </div>
         </div>
       </div>
     </section>
+    <section id="about"><div class="wrap panel"><div class="kicker">Identity File</div><h2 class="section-title">这次的 Fairy，不再是随手画的图案。</h2><p class="muted">我把视觉重心改成“蓝色全息 AI 头像”：发光蓝发、电子眼、HUD 状态栏、环形数据轨道、眨眼和浮动动画。它不是对官方素材的复制，而是更接近 Fairy 气质的粉丝向网页头像。</p></div></section>
+    <section id="protocol"><div class="wrap grid"><div class="panel"><h2 class="section-title">行动语气</h2><p class="quote">“我不是在命令你。<span>只是所有计算结果都指向：听我的。</span>”</p></div><div class="panel"><div class="module"><h3><code>01</code> 空洞路径演算</h3><p>优先选择蓝色低风险路径，保留撤离窗口。</p></div><br><div class="module"><h3><code>02</code> 绳匠状态监控</h3><p>当你准备莽进去时，我负责用最礼貌的方式阻止你。</p></div><br><div class="module"><h3><code>03</code> 数据人格陪伴</h3><p>冷静、精准、偶尔吐槽，但底层逻辑永远是保护你。</p></div></div></div></section>
   </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <span>FAIRY.OS // built for New Eridu proxies</span>
-      <span>非官方粉丝向页面 · Zenless Zone Zero inspired</span>
-    </div>
-  </footer>
+  <footer><div class="wrap"><span>FAIRY / BLUE HDD INTERFACE</span><span>非官方粉丝向页面 · Zenless Zone Zero inspired</span></div></footer>
 </body>
 </html>
