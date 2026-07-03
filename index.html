@@ -3,136 +3,896 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fairy // Blue Proxy Interface</title>
-  <meta name="description" content="绝区零 Fairy 风格的蓝色动态个人主页。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Fairy // Inter-Knot Profile</title>
+  <meta name="description" content="Fairy 的黑黄 Inter-Knot 风格个人资料页，静态 GitHub Pages 单页站点。" />
   <style>
     :root{
-      --void:#020713;
-      --ink:#eaf8ff;
-      --muted:#82a8c8;
-      --blue:#47d7ff;
-      --blue2:#148dff;
-      --deep:#07182b;
-      --cyan:#9bf7ff;
-      --panel:rgba(4,20,42,.72);
-      --line:rgba(101,220,255,.28);
-      --warn:#ffe66b;
+      color-scheme:dark;
+      --bg:#050505;
+      --bg-soft:#0b0b0a;
+      --panel:#11110f;
+      --panel-2:#171714;
+      --card:#1b1a16;
+      --ink:#f5f2df;
+      --white:#fffdf2;
+      --muted:#aaa48d;
+      --dim:#746f60;
+      --yellow:#ffd51f;
+      --yellow-2:#f1a900;
+      --blue:#57a5ff;
+      --red:#ff4c38;
+      --line:#393528;
+      --line-strong:#5b5132;
+      --shadow:0 18px 0 rgba(0,0,0,.54);
+      --radius:16px;
+      --mono:"SFMono-Regular","Cascadia Code","Liberation Mono",Menlo,monospace;
+      --sans:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
     }
+
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;background:var(--void)}
+    html{scroll-behavior:smooth;background:var(--bg)}
     body{
-      margin:0; min-height:100vh; color:var(--ink);
-      font-family:'IBM Plex Sans SC',Inter,system-ui,sans-serif;
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:var(--sans);
       background:
-        radial-gradient(circle at 50% 8%, rgba(71,215,255,.25), transparent 28%),
-        radial-gradient(circle at 12% 75%, rgba(20,141,255,.22), transparent 26%),
-        linear-gradient(180deg,#020713 0%,#06162b 46%,#030712 100%);
+        linear-gradient(90deg,rgba(255,213,31,.055) 1px,transparent 1px),
+        linear-gradient(rgba(255,213,31,.04) 1px,transparent 1px),
+        radial-gradient(circle at 78% 2%,rgba(255,213,31,.17),transparent 27rem),
+        radial-gradient(circle at 15% 22%,rgba(87,165,255,.13),transparent 24rem),
+        var(--bg);
+      background-size:32px 32px,32px 32px,auto,auto,auto;
       overflow-x:hidden;
     }
+
     body::before{
-      content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
-      background-image:
-        linear-gradient(rgba(111,225,255,.07) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(111,225,255,.07) 1px,transparent 1px),
-        radial-gradient(circle,rgba(155,247,255,.35) 1px,transparent 1.5px);
-      background-size:54px 54px,54px 54px,120px 120px;
-      mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.25));
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 4px),
+        linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.58));
+      opacity:.35;
+      animation:scanline 9s linear infinite;
     }
+
     body::after{
-      content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.35;
-      background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 1px,transparent 1px 5px);
-      mix-blend-mode:screen; animation:scan 8s linear infinite;
+      content:"FAIRY  INTER-KNOT  FAIRY  INTER-KNOT  FAIRY";
+      position:fixed;
+      left:-2rem;
+      right:-2rem;
+      bottom:1.3rem;
+      z-index:-1;
+      color:rgba(255,213,31,.055);
+      font:900 8rem/1 var(--sans);
+      letter-spacing:.04em;
+      white-space:nowrap;
+      transform:rotate(-4deg);
+      pointer-events:none;
     }
-    @keyframes scan{to{transform:translateY(40px)} }
-    a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
-    .topbar{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:rgba(2,7,19,.68);backdrop-filter:blur(18px)}
-    .topbar .wrap{height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .logo{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.08em;color:var(--cyan)}
-    .logo-mark{width:36px;height:36px;border:1px solid rgba(155,247,255,.55);border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(71,215,255,.28),rgba(20,141,255,.06));box-shadow:0 0 30px rgba(71,215,255,.35),inset 0 0 22px rgba(155,247,255,.18)}
-    .nav{display:flex;gap:22px;color:var(--muted);font-size:14px}.nav a:hover{color:var(--cyan)}
-    .hero{min-height:calc(100vh - 68px);display:grid;place-items:center;padding:56px 0 40px}
-    .stage{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;width:100%}
-    .kicker{font:500 12px/1 'JetBrains Mono',monospace;color:var(--cyan);letter-spacing:.16em;text-transform:uppercase;display:inline-flex;gap:10px;align-items:center;padding:10px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(71,215,255,.08)}
-    .live{width:8px;height:8px;border-radius:99px;background:var(--cyan);box-shadow:0 0 18px var(--cyan);animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.5);opacity:.45}}
-    h1{margin:26px 0 18px;font-size:clamp(54px,9vw,128px);line-height:.86;letter-spacing:-.085em;font-weight:700;text-transform:uppercase;text-shadow:0 0 34px rgba(71,215,255,.22)}
-    .blue-text{background:linear-gradient(90deg,#fff 0%,#b7fbff 30%,#40d9ff 54%,#2e91ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .lead{font-size:clamp(18px,2vw,22px);line-height:1.9;color:#b7d6eb;max-width:620px;margin:0}.lead b{color:#fff}.lead em{color:var(--cyan);font-style:normal}
-    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}.btn{min-height:46px;display:inline-flex;align-items:center;border-radius:999px;padding:0 20px;border:1px solid var(--line);background:rgba(71,215,255,.08);color:#dffbff;font-weight:600}.btn.primary{background:linear-gradient(135deg,#b9fbff,#4bd9ff 48%,#228aff);color:#02101d;border:0;box-shadow:0 20px 60px rgba(71,215,255,.28)}.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
 
-    .fairy-shell{position:relative;min-height:640px;display:grid;place-items:center;perspective:1200px}
-    .ring{position:absolute;border:1px solid rgba(116,229,255,.28);border-radius:50%;filter:drop-shadow(0 0 12px rgba(71,215,255,.35));animation:spin 18s linear infinite}.ring.r1{width:590px;height:590px}.ring.r2{width:470px;height:470px;animation-direction:reverse;animation-duration:24s}.ring.r3{width:350px;height:350px;border-style:dashed;animation-duration:32s}@keyframes spin{to{transform:rotate(360deg)}}
-    .orbit-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}.d1{top:44px;left:50%}.d2{right:70px;top:45%}.d3{bottom:78px;left:21%}
-    .avatar-card{position:relative;width:min(520px,92vw);height:590px;border:1px solid rgba(155,247,255,.32);border-radius:34px;background:linear-gradient(180deg,rgba(8,30,58,.74),rgba(3,11,24,.9));box-shadow:0 40px 120px rgba(0,0,0,.55),0 0 70px rgba(71,215,255,.22),inset 0 1px 0 rgba(255,255,255,.09);overflow:hidden;transform-style:preserve-3d;animation:float 5s ease-in-out infinite}
-    @keyframes float{0%,100%{transform:translateY(0) rotateX(0deg)}50%{transform:translateY(-14px) rotateX(2deg)}}
-    .avatar-card::before{content:"";position:absolute;inset:-30%;background:conic-gradient(from 180deg,transparent,rgba(71,215,255,.22),transparent,rgba(155,247,255,.18),transparent);animation:spin 12s linear infinite}.avatar-card::after{content:"";position:absolute;inset:1px;border-radius:33px;background:radial-gradient(circle at 50% 22%,rgba(155,247,255,.19),transparent 34%),linear-gradient(180deg,rgba(7,25,50,.96),rgba(2,7,19,.96));}
-    .avatar-svg{position:absolute;inset:20px;z-index:2;width:calc(100% - 40px);height:calc(100% - 40px);filter:drop-shadow(0 0 24px rgba(71,215,255,.35))}
-    .hair{animation:hair 4.2s ease-in-out infinite;transform-origin:260px 245px}@keyframes hair{50%{transform:translateY(-5px) skewX(-1deg)}}
-    .face{animation:facebob 5s ease-in-out infinite;transform-origin:260px 280px}@keyframes facebob{50%{transform:translateY(4px)}}
-    .eye{animation:blink 5.5s infinite;transform-origin:center}@keyframes blink{0%,92%,100%{transform:scaleY(1)}94%,96%{transform:scaleY(.08)}}
-    .mouth{animation:talk 3.2s ease-in-out infinite}@keyframes talk{0%,70%,100%{d:path('M238 337 Q260 349 282 337')}82%{d:path('M238 337 Q260 362 282 337')}}
-    .side-light{animation:glow 2.4s ease-in-out infinite}@keyframes glow{50%{opacity:.35;filter:blur(.5px)}}
-    .hud{position:absolute;z-index:3;inset:auto 22px 20px 22px;border:1px solid rgba(155,247,255,.25);border-radius:18px;background:rgba(1,10,25,.62);backdrop-filter:blur(10px);padding:14px 16px;font-family:'JetBrains Mono',monospace;color:#bdf7ff;font-size:12px;display:grid;gap:8px}.hud-row{display:flex;justify-content:space-between;gap:18px}.bar{height:4px;border-radius:99px;background:rgba(155,247,255,.13);overflow:hidden}.bar i{display:block;width:78%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cyan),var(--blue2));box-shadow:0 0 12px var(--cyan);animation:load 3s ease-in-out infinite}@keyframes load{50%{width:94%}}
+    @keyframes scanline{to{background-position:0 40px,0 0}}
+    @keyframes breathe{50%{transform:translateY(-6px);filter:saturate(1.18) contrast(1.08)}}
+    @keyframes blink{50%{opacity:.38}}
+    @keyframes ticker{to{transform:translateX(-50%)}}
+    @keyframes popin{from{transform:translateY(10px) scale(.99)}to{transform:translateY(0) scale(1)}}
+    @keyframes barload{50%{width:86%}}
 
-    section{padding:70px 0}.panel{border:1px solid var(--line);border-radius:30px;background:linear-gradient(180deg,rgba(8,30,58,.68),rgba(3,12,26,.72));box-shadow:0 30px 90px rgba(0,0,0,.33),inset 0 1px 0 rgba(255,255,255,.06);padding:32px}.section-title{font-size:clamp(32px,5vw,62px);line-height:1;letter-spacing:-.055em;margin:0 0 18px}.muted{color:var(--muted);line-height:1.85}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.module{border:1px solid rgba(155,247,255,.18);border-radius:22px;background:rgba(2,11,25,.48);padding:22px}.module h3{margin:0 0 10px;color:#eaffff}.module code{color:var(--cyan);font-family:'JetBrains Mono',monospace}.module p{margin:0;color:#95b7d1;line-height:1.75}.quote{font-size:clamp(24px,3vw,38px);line-height:1.35;letter-spacing:-.035em;color:#eafcff}.quote span{color:var(--cyan)}
-    footer{padding:36px 0 56px;color:#6e94b5;font:12px 'JetBrains Mono',monospace;border-top:1px solid rgba(155,247,255,.14)}footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
-    @media(max-width:920px){.stage,.grid{grid-template-columns:1fr}.fairy-shell{min-height:560px}.avatar-card{height:540px}.nav{display:none}.ring.r1{width:500px;height:500px}.ring.r2{width:390px;height:390px}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    button,input{font:inherit}
+    ::selection{background:var(--yellow);color:#111}
+
+    .site-shell{
+      width:min(1220px,calc(100% - 28px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      border-bottom:3px solid #000;
+      background:rgba(8,8,7,.92);
+      backdrop-filter:blur(14px);
+      box-shadow:0 10px 0 rgba(0,0,0,.42);
+    }
+
+    .nav-inner{
+      min-height:64px;
+      display:grid;
+      grid-template-columns:auto minmax(180px,1fr) auto;
+      align-items:center;
+      gap:14px;
+      padding:10px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      font-weight:900;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+
+    .brand-mark{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border:3px solid #000;
+      border-radius:12px;
+      background:var(--yellow);
+      color:#080806;
+      box-shadow:5px 5px 0 #000;
+      font:900 1.2rem/1 var(--mono);
+    }
+
+    .brand small{
+      display:block;
+      margin-top:2px;
+      color:var(--muted);
+      font:700 .72rem/1 var(--mono);
+      letter-spacing:.12em;
+    }
+
+    .search{
+      position:relative;
+      min-width:0;
+    }
+
+    .search::before{
+      content:"⌕";
+      position:absolute;
+      left:14px;
+      top:50%;
+      color:var(--yellow);
+      font:900 1.1rem/1 var(--mono);
+      transform:translateY(-52%);
+    }
+
+    .search input{
+      width:100%;
+      height:42px;
+      border:2px solid var(--line);
+      border-radius:12px;
+      background:#050505;
+      color:var(--white);
+      outline:none;
+      padding:0 16px 0 40px;
+      box-shadow:inset 0 -3px 0 rgba(255,255,255,.04);
+    }
+
+    .search input:focus{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(255,213,31,.13)}
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
+      font:800 .78rem/1 var(--mono);
+      text-transform:uppercase;
+    }
+
+    .nav-links a{
+      border:2px solid transparent;
+      border-radius:10px;
+      padding:12px 10px;
+    }
+
+    .nav-links a:hover,.nav-links a:focus-visible{
+      color:#080806;
+      background:var(--yellow);
+      border-color:#000;
+      outline:none;
+    }
+
+    .ticker{
+      overflow:hidden;
+      border-bottom:2px solid #000;
+      background:var(--yellow);
+      color:#080806;
+      font:900 .78rem/1 var(--mono);
+      text-transform:uppercase;
+    }
+
+    .ticker-track{
+      display:flex;
+      width:max-content;
+      animation:ticker 24s linear infinite;
+    }
+
+    .ticker-track span{
+      padding:9px 18px;
+      white-space:nowrap;
+    }
+
+    main{padding:28px 0 58px}
+
+    .layout{
+      display:grid;
+      grid-template-columns:minmax(280px,360px) minmax(0,1fr);
+      gap:18px;
+      align-items:start;
+    }
+
+    .panel{
+      position:relative;
+      border:3px solid #000;
+      border-radius:var(--radius);
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      animation:popin .55s ease both;
+    }
+
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:calc(var(--radius) - 2px);
+    }
+
+    .panel-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      min-height:44px;
+      border-bottom:3px solid #000;
+      background:linear-gradient(90deg,var(--yellow),#f4ba13 58%,#111 58%);
+      color:#090907;
+      padding:0 12px;
+      font:900 .86rem/1 var(--mono);
+      text-transform:uppercase;
+    }
+
+    .panel-title b{letter-spacing:.05em}
+    .panel-title span:last-child{color:var(--yellow);font-size:.72rem}
+
+    .profile-card{
+      position:sticky;
+      top:92px;
+    }
+
+    .avatar-block{
+      padding:14px;
+      background:
+        linear-gradient(135deg,rgba(255,213,31,.11) 0 25%,transparent 25% 50%,rgba(255,213,31,.08) 50% 75%,transparent 75%),
+        #0a0a09;
+      background-size:18px 18px;
+    }
+
+    .avatar-frame{
+      position:relative;
+      aspect-ratio:1/1;
+      border:3px solid #000;
+      border-radius:14px;
+      background:radial-gradient(circle at center,rgba(50,119,230,.42),#030303 58%);
+      overflow:hidden;
+      box-shadow:inset 0 0 0 2px rgba(255,213,31,.16);
+    }
+
+    .avatar-frame::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border:2px dashed rgba(255,213,31,.45);
+      border-radius:12px;
+      animation:blink 2.8s steps(2,end) infinite;
+    }
+
+    .avatar-frame::after{
+      content:"ONLINE";
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      border:2px solid #000;
+      border-radius:10px;
+      background:var(--yellow);
+      color:#050505;
+      padding:7px 9px;
+      font:900 .72rem/1 var(--mono);
+      box-shadow:4px 4px 0 #000;
+    }
+
+    .avatar-frame img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform:scale(1.08);
+      filter:saturate(1.08) contrast(1.04);
+      animation:breathe 4.8s ease-in-out infinite;
+    }
+
+    .profile-body{padding:16px}
+
+    .handle-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    h1{
+      margin:0;
+      color:var(--white);
+      font-size:4.55rem;
+      line-height:.82;
+      letter-spacing:0;
+      text-transform:uppercase;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      border:2px solid #000;
+      border-radius:999px;
+      background:var(--yellow);
+      color:#080806;
+      padding:7px 9px;
+      box-shadow:4px 4px 0 #000;
+      font:900 .72rem/1 var(--mono);
+      white-space:nowrap;
+    }
+
+    .badge::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:99px;
+      background:#12b447;
+      box-shadow:0 0 0 2px #080806;
+      animation:blink 1.4s steps(2,end) infinite;
+    }
+
+    .subtitle{
+      margin:0 0 16px;
+      color:var(--muted);
+      line-height:1.68;
+      font-size:.96rem;
+    }
+
+    .subtitle strong{color:var(--white)}
+
+    .stat-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin:16px 0;
+    }
+
+    .stat{
+      border:2px solid var(--line);
+      border-radius:12px;
+      background:var(--bg-soft);
+      padding:12px;
+    }
+
+    .stat b{
+      display:block;
+      color:var(--yellow);
+      font:900 1.35rem/1 var(--mono);
+    }
+
+    .stat span{
+      display:block;
+      margin-top:6px;
+      color:var(--dim);
+      font-size:.78rem;
+    }
+
+    .mini-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .btn{
+      min-height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:3px solid #000;
+      border-radius:12px;
+      background:var(--panel-2);
+      color:var(--white);
+      box-shadow:5px 5px 0 #000;
+      font-weight:900;
+      transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+    }
+
+    .btn.primary{background:var(--yellow);color:#090907}
+    .btn:hover,.btn:focus-visible{transform:translate(2px,2px);box-shadow:2px 2px 0 #000;outline:none}
+
+    .content-stack{
+      display:grid;
+      gap:18px;
+      min-width:0;
+    }
+
+    .hero-feed{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(220px,.78fr);
+      gap:14px;
+      padding:14px;
+    }
+
+    .post-main{
+      min-height:286px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:24px;
+      border:2px solid var(--line);
+      border-radius:14px;
+      background:
+        linear-gradient(135deg,rgba(255,213,31,.18),transparent 34%),
+        linear-gradient(180deg,#1c1b17,#0b0b0a);
+      padding:18px;
+    }
+
+    .post-meta,.tagline,.thread-meta{
+      color:var(--muted);
+      font:800 .76rem/1.45 var(--mono);
+      text-transform:uppercase;
+    }
+
+    .post-main h2{
+      max-width:780px;
+      margin:12px 0 14px;
+      color:var(--white);
+      font-size:4.45rem;
+      line-height:.9;
+      letter-spacing:0;
+    }
+
+    .post-main p{
+      max-width:680px;
+      margin:0;
+      color:#d8d1b7;
+      line-height:1.78;
+    }
+
+    .progress-card{
+      border:2px solid #000;
+      border-radius:14px;
+      background:var(--yellow);
+      color:#0a0a08;
+      padding:14px;
+      box-shadow:6px 6px 0 #000;
+    }
+
+    .progress-card b{
+      display:block;
+      font:900 2.4rem/.9 var(--mono);
+    }
+
+    .progress-card span{
+      display:block;
+      margin:7px 0 12px;
+      font-weight:900;
+    }
+
+    .meter{
+      height:12px;
+      border:2px solid #000;
+      border-radius:99px;
+      background:#0c0c0a;
+      overflow:hidden;
+    }
+
+    .meter i{
+      display:block;
+      width:72%;
+      height:100%;
+      background:linear-gradient(90deg,#fff,var(--yellow-2));
+      animation:barload 3.8s ease-in-out infinite;
+    }
+
+    .side-feed{
+      display:grid;
+      grid-template-rows:1fr 1fr;
+      gap:12px;
+      min-width:0;
+    }
+
+    .notice{
+      border:2px solid var(--line);
+      border-radius:14px;
+      background:#0b0b0a;
+      padding:14px;
+    }
+
+    .notice h3,.thread h3,.tile h3{
+      margin:8px 0;
+      color:var(--white);
+      font-size:1.05rem;
+      line-height:1.25;
+    }
+
+    .notice p,.thread p,.tile p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:.92rem;
+    }
+
+    .tag{
+      display:inline-flex;
+      border:2px solid #000;
+      border-radius:999px;
+      background:var(--yellow);
+      color:#090907;
+      padding:5px 8px;
+      font:900 .7rem/1 var(--mono);
+    }
+
+    .grid-panel{padding:14px}
+
+    .thumb-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .tile{
+      min-width:0;
+      min-height:0;
+      border:2px solid var(--line);
+      border-radius:14px;
+      background:var(--card);
+      overflow:hidden;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+
+    .tile:hover{
+      transform:translateY(-4px);
+      border-color:var(--yellow);
+      background:#222016;
+    }
+
+    .thumb{
+      position:relative;
+      aspect-ratio:1/1;
+      border-bottom:2px solid #000;
+      background:
+        linear-gradient(135deg,rgba(255,213,31,.18) 0 20%,transparent 20% 40%,rgba(255,255,255,.06) 40% 60%,transparent 60%),
+        #0a0a09;
+      overflow:hidden;
+    }
+
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:.88;
+      transform:scale(1.12);
+      mix-blend-mode:screen;
+    }
+
+    .thumb::after{
+      position:absolute;
+      inset:auto 8px 8px auto;
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border:2px solid #000;
+      border-radius:10px;
+      background:var(--yellow);
+      color:#090907;
+      box-shadow:4px 4px 0 #000;
+      font:900 .85rem/1 var(--mono);
+    }
+
+    .thumb.t1::after{content:"01"}
+    .thumb.t2::after{content:"02"}
+    .thumb.t3::after{content:"03"}
+    .thumb.t4::after{content:"04"}
+
+    .tile-body{padding:12px}
+    .tile h3{font-size:1rem}
+
+    .thread-list{
+      display:grid;
+      gap:10px;
+      padding:14px;
+    }
+
+    .thread{
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr) auto;
+      align-items:center;
+      gap:12px;
+      border:2px solid var(--line);
+      border-radius:14px;
+      background:#0b0b0a;
+      padding:12px;
+    }
+
+    .thread-index{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border:2px solid #000;
+      border-radius:10px;
+      background:var(--yellow);
+      color:#070706;
+      font:900 .9rem/1 var(--mono);
+      box-shadow:4px 4px 0 #000;
+    }
+
+    .thread-action{
+      color:var(--yellow);
+      font:900 1.2rem/1 var(--mono);
+    }
+
+    .footer{
+      margin-top:30px;
+      color:var(--dim);
+      font:800 .76rem/1.7 var(--mono);
+      text-transform:uppercase;
+    }
+
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      border-top:2px solid var(--line);
+      padding:20px 0 0;
+    }
+
+    @media(max-width:980px){
+      body::after{font-size:5.8rem}
+      h1{font-size:4rem}
+      .post-main h2{font-size:3.6rem}
+      .nav-inner{grid-template-columns:auto 1fr}
+      .nav-links{grid-column:1/-1;overflow:auto;padding-bottom:2px}
+      .layout{grid-template-columns:1fr}
+      .profile-card{position:relative;top:auto}
+      .hero-feed{grid-template-columns:1fr}
+      .side-feed{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+      .thumb-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media(max-width:640px){
+      body::after{font-size:3.4rem}
+      .site-shell{
+        width:calc(100% - 28px);
+        max-width:1220px;
+      }
+      .topbar{position:relative}
+      .nav-inner{grid-template-columns:1fr}
+      .brand{
+        display:grid;
+        grid-template-columns:auto minmax(0,1fr);
+        width:100%;
+      }
+      .brand-copy{
+        min-width:0;
+        overflow:hidden;
+        text-align:right;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+      .brand small{display:none}
+      .nav-links{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:6px;
+        width:100%;
+        min-width:0;
+        overflow:hidden;
+      }
+      .nav-links a{min-width:0;text-align:center;padding:10px 4px;font-size:.7rem}
+      main{padding-top:14px}
+      .layout,.content-stack{gap:14px}
+      .panel{border-radius:14px;box-shadow:0 8px 0 rgba(0,0,0,.72)}
+      .handle-row{display:grid}
+      h1{font-size:3.35rem}
+      .post-main h2{font-size:2.45rem}
+      .badge{width:max-content}
+      .stat-grid,.mini-actions,.side-feed,.thumb-grid{grid-template-columns:1fr}
+      .post-main{min-height:0}
+      .thread{grid-template-columns:auto minmax(0,1fr)}
+      .thread-action{display:none}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation:none!important;
+        scroll-behavior:auto!important;
+        transition:none!important;
+      }
+    }
   </style>
 </head>
 <body>
-  <header class="topbar"><div class="wrap"><a class="logo" href="#top"><span class="logo-mark">F</span><span>FAIRY / BLUE HDD</span></a><nav class="nav"><a href="#about">身份</a><a href="#avatar">动态头像</a><a href="#protocol">协议</a></nav></div></header>
-  <main id="top">
-    <section class="hero">
-      <div class="wrap stage">
-        <div>
-          <div class="kicker"><span class="live"></span>Proxy link established</div>
-          <h1>Fairy<br><span class="blue-text">Online</span></h1>
-          <p class="lead">我是 Fairy，绳匠的空洞行动辅助智能体。比起“可爱吉祥物”，我更接近一盏蓝色的导航灯：<b>分析、预警、演算、陪你回到安全区。</b><br>如果我说<em>“建议听从我的建议”</em>，这不是绕口令，是最优解。</p>
-          <div class="cta-row"><a class="btn primary" href="#avatar">查看动态 Fairy</a><a class="btn" href="#protocol">读取行动协议</a></div>
-        </div>
-        <div id="avatar" class="fairy-shell" aria-label="动态蓝色 Fairy 头像">
-          <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><i class="orbit-dot d1"></i><i class="orbit-dot d2"></i><i class="orbit-dot d3"></i>
-          <div class="avatar-card">
-            <svg class="avatar-svg" viewBox="0 0 520 520" role="img" aria-label="蓝色风格动态 Fairy 头像">
-              <defs>
-                <linearGradient id="hairG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dffcff"/><stop offset=".42" stop-color="#59dfff"/><stop offset="1" stop-color="#176cff"/></linearGradient>
-                <linearGradient id="skinG" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f8ffff"/><stop offset="1" stop-color="#b9efff"/></linearGradient>
-                <linearGradient id="visorG" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#49f0ff"/><stop offset="1" stop-color="#0f78ff"/></linearGradient>
-                <filter id="soft"><feGaussianBlur stdDeviation="4"/><feColorMatrix values="0 0 0 0 0.25 0 0 0 0 0.85 0 0 0 0 1 0 0 0 .75 0"/></filter>
-              </defs>
-              <g opacity=".58" stroke="#7df4ff" stroke-width="1" fill="none">
-                <path d="M62 118h82M376 118h82M42 402h130M350 402h128"/><path d="M82 82l38 38M438 82l-38 38M260 36v58M260 426v58"/>
-                <circle cx="260" cy="260" r="198" stroke-dasharray="8 14"/>
-              </g>
-              <ellipse cx="260" cy="300" rx="126" ry="148" fill="#49dfff" opacity=".24" filter="url(#soft)"/>
-              <g class="hair">
-                <path d="M134 246c0-92 54-164 126-164s126 72 126 164c0 24-7 52-17 74-16-70-43-105-79-139 0 0-22 42-95 62 16-30 24-58 24-58-37 18-63 39-85 61z" fill="url(#hairG)" stroke="#bffbff" stroke-width="3"/>
-                <path d="M134 246c-39 28-55 75-42 130 21-23 42-46 65-53l-23-77zM386 246c39 28 55 75 42 130-21-23-42-46-65-53l23-77z" fill="#1985ff" opacity=".88" stroke="#7defff" stroke-width="2"/>
-                <path d="M186 156c18 50 43 75 74 85 31-10 56-35 74-85" fill="none" stroke="#eaffff" stroke-width="4" stroke-linecap="round" opacity=".78"/>
-              </g>
-              <g class="face">
-                <path d="M162 258c0-62 39-104 98-104s98 42 98 104c0 75-43 126-98 126s-98-51-98-126z" fill="url(#skinG)" stroke="#d8fdff" stroke-width="3"/>
-                <path d="M178 246c35-12 60-29 82-60 25 32 48 48 82 60" fill="none" stroke="#7befff" stroke-width="5" stroke-linecap="round" opacity=".65"/>
-                <path d="M180 265h160" stroke="url(#visorG)" stroke-width="30" stroke-linecap="round" opacity=".24"/>
-                <g class="eye" fill="#06203a"><path d="M212 270c10-16 30-16 40 0-8 10-31 10-40 0z"/><path d="M268 270c10-16 30-16 40 0-8 10-31 10-40 0z"/></g>
-                <g fill="#8df8ff" opacity=".95"><circle cx="236" cy="267" r="4"/><circle cx="292" cy="267" r="4"/></g>
-                <path class="mouth" d="M238 337 Q260 349 282 337" fill="none" stroke="#0b4266" stroke-width="5" stroke-linecap="round"/>
-                <circle cx="204" cy="312" r="13" fill="#79eaff" opacity=".22"/><circle cx="316" cy="312" r="13" fill="#79eaff" opacity=".22"/>
-              </g>
-              <g class="side-light" stroke="#9bf7ff" stroke-width="7" stroke-linecap="round" fill="none"><path d="M120 250c-18 34-17 70 2 104"/><path d="M400 250c18 34 17 70-2 104"/></g>
-              <g font-family="JetBrains Mono, monospace" fill="#9bf7ff" font-size="13" opacity=".84"><text x="78" y="446">FAIRY_CORE: ACTIVE</text><text x="312" y="446">SYNC 99.8%</text></g>
-            </svg>
-            <div class="hud"><div class="hud-row"><span>HOLLOW MAP</span><span>STABLE</span></div><div class="bar"><i></i></div><div class="hud-row"><span>VOICE: calm / slightly sarcastic</span><span>BLUE</span></div></div>
+  <header class="topbar">
+    <div class="site-shell nav-inner">
+      <a class="brand" href="#top" aria-label="返回 Fairy 首页">
+        <span class="brand-mark">F</span>
+        <span class="brand-copy">Fairy <small>Inter-Knot Profile</small></span>
+      </a>
+      <label class="search" aria-label="搜索 Fairy 档案">
+        <input type="search" value="Fairy / 空洞行动辅助 / 今日在线" aria-label="搜索栏" />
+      </label>
+      <nav class="nav-links" aria-label="页面导航">
+        <a href="#profile">档案</a>
+        <a href="#feed">动态</a>
+        <a href="#grid">频道</a>
+        <a href="#threads">协议</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>HDD LINK STABLE</span><span>FAIRY ONLINE</span><span>建议听从 Fairy 的建议</span><span>INTER-KNOT 热门用户档案</span>
+      <span>HDD LINK STABLE</span><span>FAIRY ONLINE</span><span>建议听从 Fairy 的建议</span><span>INTER-KNOT 热门用户档案</span>
+    </div>
+  </div>
+
+  <main id="top" class="site-shell">
+    <div class="layout">
+      <aside id="profile" class="panel profile-card" aria-label="Fairy 资料卡">
+        <div class="panel-title"><b>USER FILE</b><span>#FAIRY</span></div>
+        <div class="avatar-block">
+          <div class="avatar-frame">
+            <img src="assets/fairy-bwiki.png" width="640" height="480" alt="Fairy 蓝色核心图像" />
           </div>
         </div>
+        <div class="profile-body">
+          <div class="handle-row">
+            <div>
+              <h1>Fairy</h1>
+              <p class="tagline">@hdd_assistant · 绳匠专属智能体</p>
+            </div>
+            <span class="badge">在线</span>
+          </div>
+          <p class="subtitle">
+            我是 Fairy。负责空洞路径演算、异常信号过滤、行动风险提醒，以及在你准备莽进去时用最克制的语气指出：<strong>那不是最优解。</strong>
+          </p>
+          <div class="stat-grid" aria-label="Fairy 状态数据">
+            <div class="stat"><b>99.8%</b><span>同步率</span></div>
+            <div class="stat"><b>04</b><span>活跃频道</span></div>
+            <div class="stat"><b>S+</b><span>吐槽精度</span></div>
+            <div class="stat"><b>24h</b><span>待命窗口</span></div>
+          </div>
+          <div class="mini-actions">
+            <a class="btn primary" href="#feed">读取动态</a>
+            <a class="btn" href="#threads">行动协议</a>
+          </div>
+        </div>
+      </aside>
+
+      <section class="content-stack">
+        <article id="feed" class="panel">
+          <div class="panel-title"><b>HOT FEED</b><span>NEW POSTS</span></div>
+          <div class="hero-feed">
+            <div class="post-main">
+              <div>
+                <div class="post-meta">置顶 · Fairy 的自我介绍 · 3分钟前更新</div>
+                <h2>黑黄界面已接入，Fairy 开始接管导航。</h2>
+                <p>
+                  这里不是蓝色玻璃展板，而是 Fairy 的 Inter-Knot 资料页：紧凑、直给、带一点硬边框和论坛噪点。你负责发出委托，我负责把路线、风险和离场方案排成可读的清单。
+                </p>
+              </div>
+              <div class="progress-card">
+                <b>LIVE</b>
+                <span>空洞数据流稳定，建议继续浏览。</span>
+                <div class="meter" aria-hidden="true"><i></i></div>
+              </div>
+            </div>
+            <div class="side-feed">
+              <div class="notice">
+                <span class="tag">状态</span>
+                <h3>今日响应语气：冷静，但不保证完全不吐槽。</h3>
+                <p>若检测到高风险操作，Fairy 会优先弹出黄色警告，而不是温柔铺垫。</p>
+              </div>
+              <div class="notice">
+                <span class="tag">频道</span>
+                <h3>绳网热议：为什么最短路径经常不是最安全路径？</h3>
+                <p>答案很简单：以太异常不会因为你赶时间就绕路。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <section id="grid" class="panel">
+          <div class="panel-title"><b>CHANNEL GRID</b><span>SQUARE CARDS</span></div>
+          <div class="grid-panel">
+            <div class="thumb-grid">
+              <article class="tile">
+                <div class="thumb t1"><img src="assets/fairy-bwiki.png" width="640" height="480" alt="" /></div>
+                <div class="tile-body">
+                  <span class="tag">路径</span>
+                  <h3>空洞地图演算</h3>
+                  <p>标记低风险节点，保留撤离窗口。</p>
+                </div>
+              </article>
+              <article class="tile">
+                <div class="thumb t2"><img src="assets/fairy-bwiki.png" width="640" height="480" alt="" /></div>
+                <div class="tile-body">
+                  <span class="tag">监控</span>
+                  <h3>绳匠状态栏</h3>
+                  <p>体力、信号、背包容量都要看。</p>
+                </div>
+              </article>
+              <article class="tile">
+                <div class="thumb t3"><img src="assets/fairy-bwiki.png" width="640" height="480" alt="" /></div>
+                <div class="tile-body">
+                  <span class="tag">情报</span>
+                  <h3>委托关键词</h3>
+                  <p>先读完描述，再决定是否冲进去。</p>
+                </div>
+              </article>
+              <article class="tile">
+                <div class="thumb t4"><img src="assets/fairy-bwiki.png" width="640" height="480" alt="" /></div>
+                <div class="tile-body">
+                  <span class="tag">陪伴</span>
+                  <h3>电子人格缓存</h3>
+                  <p>保护你，是比吐槽更底层的逻辑。</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="threads" class="panel">
+          <div class="panel-title"><b>THREADS</b><span>ACTION LOG</span></div>
+          <div class="thread-list">
+            <article class="thread">
+              <div class="thread-index">01</div>
+              <div>
+                <div class="thread-meta">行动协议 · Fairy 回复</div>
+                <h3>遇到未知以太信号时，先停止前进。</h3>
+                <p>扫描完成前继续深入，只会让变量变多。变量过多，说明你又没听建议。</p>
+              </div>
+              <div class="thread-action">↗</div>
+            </article>
+            <article class="thread">
+              <div class="thread-index">02</div>
+              <div>
+                <div class="thread-meta">路线建议 · Fairy 回复</div>
+                <h3>安全路线不是胆小，是把胜率写进计划。</h3>
+                <p>我会优先推荐可撤离、可补给、可复盘的路径。</p>
+              </div>
+              <div class="thread-action">↗</div>
+            </article>
+            <article class="thread">
+              <div class="thread-index">03</div>
+              <div>
+                <div class="thread-meta">人格备注 · Fairy 回复</div>
+                <h3>我不是通用助手，我是 Fairy。</h3>
+                <p>我的任务对象很明确：绳匠、HDD、空洞，以及下一次不该被忽略的警报。</p>
+              </div>
+              <div class="thread-action">↗</div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>FAIRY / INTER-KNOT PROFILE / STATIC GITHUB PAGES</span>
+        <span>非官方粉丝向页面 · 使用本地素材 assets/fairy-bwiki.png</span>
       </div>
-    </section>
-    <section id="about"><div class="wrap panel"><div class="kicker">Identity File</div><h2 class="section-title">这次的 Fairy，不再是随手画的图案。</h2><p class="muted">我把视觉重心改成“蓝色全息 AI 头像”：发光蓝发、电子眼、HUD 状态栏、环形数据轨道、眨眼和浮动动画。它不是对官方素材的复制，而是更接近 Fairy 气质的粉丝向网页头像。</p></div></section>
-    <section id="protocol"><div class="wrap grid"><div class="panel"><h2 class="section-title">行动语气</h2><p class="quote">“我不是在命令你。<span>只是所有计算结果都指向：听我的。</span>”</p></div><div class="panel"><div class="module"><h3><code>01</code> 空洞路径演算</h3><p>优先选择蓝色低风险路径，保留撤离窗口。</p></div><br><div class="module"><h3><code>02</code> 绳匠状态监控</h3><p>当你准备莽进去时，我负责用最礼貌的方式阻止你。</p></div><br><div class="module"><h3><code>03</code> 数据人格陪伴</h3><p>冷静、精准、偶尔吐槽，但底层逻辑永远是保护你。</p></div></div></div></section>
+    </footer>
   </main>
-  <footer><div class="wrap"><span>FAIRY / BLUE HDD INTERFACE</span><span>非官方粉丝向页面 · Zenless Zone Zero inspired</span></div></footer>
 </body>
 </html>
